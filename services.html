@@ -25,15 +25,59 @@
         <!-- THEME STYLES -->
         <link href="css/layout.min.css" rel="stylesheet" type="text/css"/>
 
-        <!-- CREATE BUTTON STYLES -->
+        <!-- MODIFIED: Custom styles for dropdown and new CREATE button -->
         <style>
-            .create-button-wrapper {
-                margin-left: 50px;
+            /* MODIFIED: Styles for the new CREATE button with ring effect */
+            .btn-create {
+                background-color: transparent;
+                color: #ffffff !important;
+                padding: 6px 15px;
+                border: 2px solid #ffffff;
+                border-radius: 40px;
+                transition: all 0.3s ease;
+                font-weight: 600;
+                text-transform: uppercase;
             }
 
-            .create-button-wrapper {
-                transition: all 0.3s ease-in-out;
-                box-shadow: 0 0 0 transparent;
+            .btn-create:hover {
+                background-color: #ffffff;
+                color: #000000 !important;
+            }
+            
+            /* Styles for the country dropdown */
+            .country-dropdown .dropdown-toggle {
+                color: #fff;
+                font-size: 20px; /* Adjust icon size */
+                padding: 10px 15px;
+                background: transparent !important;
+                border: none !important;
+                box-shadow: none !important;
+            }
+
+            .country-dropdown .dropdown-toggle:hover,
+            .country-dropdown .dropdown-toggle:focus,
+            .country-dropdown.open .dropdown-toggle {
+                color: #e0e0e0;
+            }
+
+            .country-dropdown .dropdown-menu {
+                background-color: #333; /* Dark background for dropdown */
+                border: 1px solid #555;
+                border-radius: 4px;
+                margin-top: 10px;
+                right: 0;
+                left: auto;
+            }
+
+            .country-dropdown .dropdown-menu > li > a {
+                color: #fff; /* White text for dropdown items */
+                padding: 10px 20px;
+            }
+
+            .country-dropdown .dropdown-menu > li > a:hover,
+            .country-dropdown .dropdown-menu > li > a:focus {
+                background-color: #555;
+                color: #fff;
             }
         </style>
 
@@ -70,13 +114,25 @@
                     <!-- Collect the nav links, forms, and other content for toggling -->
                     <div class="collapse navbar-collapse nav-collapse">
                         <div class="menu-container">
-                            <ul class="navbar-nav navbar-nav-right">
+                            <!-- MODIFIED: Navbar structure to include dropdown at the end -->
+                            <ul class="navbar-nav navbar-nav-right" style="align-items: center; display: flex;">
                                 <li class="nav-item"><a class="nav-item-child nav-item-hover" href="index.html">Home</a></li>
                                 <li class="nav-item"><a class="nav-item-child nav-item-hover" href="about.html">About</a></li>
                                 <li class="nav-item"><a class="nav-item-child nav-item-hover active" href="services.html">Services</a></li>
                                 <li class="nav-item"><a class="nav-item-child nav-item-hover" href="contact.html">Contact</a></li>
-                                <li class="nav-item create-button-wrapper">
-                                    <a class="nav-item-child nav-item-hover" href="create-landing-page.html">CREATE</a>
+                                <!-- MODIFIED: Changed CREATE link to a button -->
+                                <li class="nav-item" style="margin-left: 30px;">
+                                    <a class="btn-create" href="create-landing-page.html">CREATE</a>
+                                </li>
+                                <!-- MODIFIED: Replaced toggle with a country dropdown -->
+                                <li class="nav-item dropdown country-dropdown" style="margin-left: 20px;">
+                                    <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                        <i class="icon-globe"></i>
+                                    </a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="#" id="country-uk">UK</a></li>
+                                        <li><a href="#" id="country-ng">Nigeria</a></li>
+                                    </ul>
                                 </li>
                             </ul>
                         </div>
