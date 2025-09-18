@@ -196,10 +196,10 @@
                         </div>
                         <div class="col-sm-5 sm-margin-b-30">
                             <h2 class="color-white">Send Us A Note</h2>
-                            <form action="contact.php" method="post" id="contact-form">
-                                <input type="text" name="fullname" class="form-control footer-input margin-b-20" placeholder="Name" required>
+                            <form action="https://formspree.io/f/xgvljlry" method="post" id="contact-form">
+                                <input type="text" name="name" class="form-control footer-input margin-b-20" placeholder="Name" required>
                                 <input type="email" name="email" class="form-control footer-input margin-b-20" placeholder="Email" required>
-                                <input type="text" name="phone" class="form-control footer-input margin-b-20" placeholder="Phone" required>
+                                <input type="tel" name="phone" class="form-control footer-input margin-b-20" placeholder="Phone" required>
                                 <textarea name="message" class="form-control footer-input margin-b-30" rows="6" placeholder="Message" required></textarea>
                                 <button type="submit" class="btn-theme btn-theme-sm btn-base-bg text-uppercase">Submit</button>
                             </form>
@@ -264,14 +264,25 @@
                     url: form.attr('action'),
                     method: form.attr('method'),
                     data: form.serialize(),
+                    dataType: 'json',
                     success: function(response) {
                         // Show success message
-                        form.html('<div class="alert alert-success" style="color: #fff; background-color: #5cb85c; padding: 15px; border-radius: 4px; margin-top: 20px;">' + response + '</div>');
+                        form.html('<div class="alert alert-success" style="color: #fff; background-color: #5cb85c; padding: 15px; border-radius: 4px; margin-top: 20px;">Thank you! Your message has been sent successfully.</div>');
                     },
                     error: function(xhr) {
-                        // Show error message
+                        // Reset button state
                         submitBtn.text(originalText).prop('disabled', false);
-                        var errorMsg = xhr.responseText || 'Something went wrong. Please try again.';
+                        
+                        // Remove any existing error messages
+                        form.find('.alert-error').remove();
+                        
+                        var errorMsg = 'Something went wrong. Please try again.';
+                        if (xhr.status === 422) {
+                            errorMsg = 'Please check your form data and try again.';
+                        } else if (xhr.status === 500) {
+                            errorMsg = 'Server error. Please try again later.';
+                        }
+                        
                         form.append('<div class="alert alert-error" style="color: #fff; background-color: #d9534f; padding: 15px; border-radius: 4px; margin-top: 20px;">' + errorMsg + '</div>');
                         
                         // Remove error message after 5 seconds
